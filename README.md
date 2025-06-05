@@ -10,7 +10,7 @@
     * Temporadas: `id_temporada, numero_temporada, id_titulo(FK)`.
       * Episódios: `id_episodio, numero_episodio, id_temporada(FK)`.
   * Pessoas: `id_pessoa, nome_pessoa(Pnome, Minicial, Unome), data_nascimento, nacionalidade, funcao (ator, atriz, diretor, escritor, dublador ou outro.)`.
-  * Avaliação: `id_avaliacao, id_usuario, id_titulo, nota, comentario, data_avaliacao, tipo_conteudo_avaliacao(filme, serie ou Elenco), id_conteudo_avaliacao (FK)`
+  * Avaliação: `id_avaliacao, id_usuario(FK), id_titulo(FK), nota, comentario, data_avaliacao, tipo_conteudo_avaliacao(filme, serie ou Elenco), id_conteudo_avaliacao (FK)`
 
 ## Sugestão de Relacionamentos entre as Entidades:
   * Pessoas (N) para Filmes (M): Um filme pode ter muitos atores/diretores/etc, e uma pessoa pode atuar/dirigir em muitos filmes.
