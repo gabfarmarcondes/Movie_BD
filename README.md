@@ -4,13 +4,13 @@
 
 ## Atores: usuários, crítico de filmes, administrador do sistema.
 * Descrição das Entidades:
-  * Usuários: `id_usuario, nome_usuario, email, senha, tipo_usuario (Comum, Crítico), status_solicitacao_critico (Pendante, Aprovado, Rejeitado), data_cadastro`.
+  * Usuários: `id_usuario, nome_usuario, email, senha, data_cadastro, tipo_usuario (Comum, Crítico), status_solicitacao_critico (Inativo, Pendante, Aprovado, Rejeitado)`.
   * Filmes: `id_titulo, titulo, genero_titulo, data_lancamento, sinopse, tempo_duracao`.
   * Série: `id_titulo, titulo, genero_titulo, ano_inicio, ano_fim, sinopse, qtde_temporadas`.
     * Temporadas: `id_temporada, numero_temporada, id_serie(FK)`.
       * Episódios: `id_episodio, numero_episodio, id_temporada(FK)`.
   * Pessoas: `id_pessoa, nome_pessoa(Pnome, Minicial, Unome), data_nascimento, nacionalidade, funcao (ator, atriz, diretor, escritor, dublador ou outro.)`.
-  * Avaliação: `id_avaliacao, id_usuario, nota, comentario, data_avaliacao, tipo_conteudo_avaliacao(filme, serie ou Elenco), id_conteudo_avaliacao (FK), id_titulo`
+  * Avaliação: `id_avaliacao, id_usuario, id_titulo, nota, comentario, data_avaliacao, tipo_conteudo_avaliacao(filme, serie ou Elenco), id_conteudo_avaliacao (FK)`
 
 ## Sugestão de Relacionamentos entre as Entidades:
   * Pessoas (N) para Filmes (M): Um filme pode ter muitos atores/diretores/etc, e uma pessoa pode atuar/dirigir em muitos filmes.
@@ -35,12 +35,12 @@
     * Representação: Avaliação também terá uma chave estrangeira `id_pessoa` referenciando Pessoas.
     <br>
 ## Requisitos Funcionais:
-  * A plataforma cadastra filmes e seus respectivos atores, atrizes e diretor(a)
-  * A plataforma cadastra séries e seus respectivos atores, atrizes, diretor(a), temporadas e seus episódios.
-  * Os usuários podem avaliar filmes, séries, atores, atrizes e diretores(as), deixando um comentário e uma nota.
-  * usuários críticos de cinema, podem mandar uma solicitação para obter o selo de crítico de cinema.
+  * A plataforma cadastra filmes (título) e seus respectivos atores, atrizes e diretor(a)
+  * A plataforma cadastra séries (título) e seus respectivos atores, atrizes, diretor(a), temporadas e seus episódios.
+  * Os usuários podem avaliar títulos, atores, atrizes e diretores(as); deixando um comentário e uma nota.
+  * Usuários podem mandar uma solicitação para obter o selo de crítico de cinema.
   * O administrador pode aprovar ou rejeitar solicitações de selo de crítico.
   * O sistema terá duas notas diferentes:
-    * Uma nota para os críticos.
-    * Uma nota para o público geral.
+    * Uma nota para dos críticos.
+    * Uma nota para do público geral.
   * A nota será de 0 a 10. De forma que será caldulada por uma média aritmética (nota de todos os usuários / quantidade de usuários que avaliaram).
