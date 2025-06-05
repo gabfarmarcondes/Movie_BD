@@ -4,10 +4,10 @@
 
 ## Atores: usuários, crítico de filmes, administrador do sistema.
 * Descrição das Entidades:
-  * Usuários: `id_usuario, nome_usuario, email, senha, data_cadastro, tipo_usuario (Comum, Crítico), status_solicitacao_critico (Inativo, Pendante, Aprovado, Rejeitado)`.
+  * Usuários: `__id_usuario__, nome_usuario, email, senha, data_cadastro, tipo_usuario (Comum, Crítico), status_solicitacao_critico (Inativo, Pendante, Aprovado, Rejeitado)`.
   * Filmes: `id_titulo, titulo, genero_titulo, data_lancamento, sinopse, tempo_duracao`.
   * Série: `id_titulo, titulo, genero_titulo, ano_inicio, ano_fim, sinopse, qtde_temporadas`.
-    * Temporadas: `id_temporada, numero_temporada, id_serie(FK)`.
+    * Temporadas: `id_temporada, numero_temporada, id_titulo(FK)`.
       * Episódios: `id_episodio, numero_episodio, id_temporada(FK)`.
   * Pessoas: `id_pessoa, nome_pessoa(Pnome, Minicial, Unome), data_nascimento, nacionalidade, funcao (ator, atriz, diretor, escritor, dublador ou outro.)`.
   * Avaliação: `id_avaliacao, id_usuario, id_titulo, nota, comentario, data_avaliacao, tipo_conteudo_avaliacao(filme, serie ou Elenco), id_conteudo_avaliacao (FK)`
