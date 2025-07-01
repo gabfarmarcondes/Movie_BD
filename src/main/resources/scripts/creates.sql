@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS Pessoa
     Minicial VARCHAR(1),
     Unome VARCHAR(50),
     Nacionalidade VARCHAR(30),
-    Data_Nascimento DATE,
+    Data_Nascimento DATE
 );
 
 CREATE TABLE IF NOT EXISTS Serie
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Filme
     Sinopse VARCHAR(255),
     Genero VARCHAR(15),
     Duracao TIME,
-    Data_Lancamento Date
+    Data_Lancamento DATE
 );
 
 CREATE TABLE IF NOT EXISTS Pessoa_Atua_Serie
@@ -36,13 +36,13 @@ CREATE TABLE IF NOT EXISTS Pessoa_Atua_Serie
     Funcao VARCHAR(30),
     PRIMARY KEY (ID_Pessoa, ID_Serie),
     FOREIGN KEY (ID_Pessoa) REFERENCES Pessoa(ID_Pessoa),
-    FOREIGN KEY (ID_SERIE) REFERENCES Serie(ID_SERIE);
+    FOREIGN KEY (ID_SERIE) REFERENCES Serie(ID_SERIE)
 );
 
 CREATE TABLE IF NOT EXISTS Pessoa_Atua_Filme
 (
-    ID_Pessoa INT PRIMARY KEY,
-    ID_Filme INT PRIMARY KEY,
+    ID_Pessoa INT,
+    ID_Filme INT,
     Funcao VARCHAR(30),
     PRIMARY KEY (ID_Pessoa, ID_Filme),
     FOREIGN KEY (ID_Pessoa) REFERENCES Pessoa(ID_Pessoa),
@@ -60,32 +60,32 @@ CREATE TABLE IF NOT EXISTS Usuario
     Tipo_Usuario VARCHAR(20)
 );
 
-CREATE TABLE IF NOT EXISTS Avalicao
+CREATE TABLE IF NOT EXISTS Avaliacao
 (
     ID_Avaliacao INT PRIMARY KEY,
     ID_Usuario INT,
     Nota INT,
     Comentario VARCHAR(255),
-    Tipo_Conteudo_Avalicao VARCHAR(10),
-    Data_Avalicao DATE,
-    ID_Conteudo_Avalicao INT,
-    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario),
+    Tipo_Conteudo_Avaliacao VARCHAR(10),
+    Data_Avaliacao DATE,
+    ID_Conteudo_Avaliacao INT,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
-CREATE TABLE IF NOT EXISTS Avalicao_Serie
+CREATE TABLE IF NOT EXISTS Avaliacao_Serie
 (
     ID_Serie INT,
     ID_Avaliacao INT,
     PRIMARY KEY(ID_Serie, ID_Avaliacao),
     FOREIGN KEY (ID_Serie) REFERENCES Serie(ID_Serie),
-    FOREIGN KEY (ID_Avaliacao) REFERENCES Avalicao(ID_Avalicao)
+    FOREIGN KEY (ID_Avaliacao) REFERENCES Avaliacao(ID_Avaliacao)
 );
 
-CREATE TABLE IF NOT EXISTS Avalicao_Filme
+CREATE TABLE IF NOT EXISTS Avaliacao_Filme
 (
     ID_Filme INT,
     ID_Avaliacao INT,
     PRIMARY KEY(ID_Filme, ID_Avaliacao),
     FOREIGN KEY (ID_Filme) REFERENCES Filme(ID_Filme),
-    FOREIGN KEY (ID_Avaliacao) REFERENCES Avalicao(ID_Avalicao)
+    FOREIGN KEY (ID_Avaliacao) REFERENCES Avaliacao(ID_Avaliacao)
 );
