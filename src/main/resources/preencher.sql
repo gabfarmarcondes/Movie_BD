@@ -27,7 +27,7 @@ INSERT INTO Usuario (ID_USUARIO, Nome_Usuario, Email, Senha, Status_Solicitacao_
       (1, 'usuario_ana', 'ana@email.com', 'senha123', FALSE, '2024-01-10', 'Critico'),
       (2, 'joao_cine', 'joao@email.com', 'senha456', TRUE, '2023-12-05', 'Comum');
 
-INSERT INTO Avaliacao (ID_Avaliacao, ID_Usuario, Nota, Comentario, Tipo_Conteudo_Avalicao, Data_Avalicao, ID_Conteudo_Avalicao)
+INSERT INTO Avaliacao (ID_Avaliacao, ID_Usuario, Nota, Comentario, Tipo_Conteudo_Avaliacao, Data_Avalicao, ID_Conteudo_Avalicao)
       VALUES
       (1, 1, 9, 'Excelente narrativa!', 'Serie', '2024-01-15', 1),
       (2, 2, 7, 'Bom filme, mas previsível.', 'Filme', '2024-02-20', 1);

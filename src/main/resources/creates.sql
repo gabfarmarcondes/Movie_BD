@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS Serie
     Sinopse VARCHAR(255),
     QTDE_Temporadas INT,
     Genero VARCHAR(15),
-    Ano_Inicio YEAR,
-    Ano_Fim YEAR
+    Ano_Inicio INTEGER,
+    Ano_Fim INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Filme
