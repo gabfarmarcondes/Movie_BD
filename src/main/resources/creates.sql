@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS Serie
 CREATE TABLE IF NOT EXISTS Filme
 (
     ID_Filme INT PRIMARY KEY,
-    Titulo VARCHAR(50),
-    Sinopse VARCHAR(255),
+    Titulo VARCHAR(50) UNIQUE,
+    Sinopse VARCHAR(255) UNIQUE,
     Genero VARCHAR(15),
     Duracao TIME,
     Data_Lancamento DATE
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS Pessoa_Atua_Filme
 CREATE TABLE IF NOT EXISTS Usuario
 (
     ID_USUARIO INT PRIMARY KEY,
-    Nome_Usuario VARCHAR(255),
-    Email VARCHAR(255),
+    Nome_Usuario VARCHAR(255) UNIQUE,
+    Email VARCHAR(255) UNIQUE,
     Senha VARCHAR(255),
     Status_Solicitacao_Critico Boolean,
     Data_Cadastro Date,
