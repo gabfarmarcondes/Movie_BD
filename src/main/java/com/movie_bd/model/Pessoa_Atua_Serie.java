@@ -29,7 +29,7 @@ public class Pessoa_Atua_Serie {
 
     @MapsId("ID_Serie")
     @ManyToOne
-    @JoinColumn(name = "ID_Filme")
+    @JoinColumn(name = "ID_Serie")
     private Serie serie;
 
     @Column(nullable = false, length = 30)
