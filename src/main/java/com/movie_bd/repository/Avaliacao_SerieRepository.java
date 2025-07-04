@@ -1,0 +1,28 @@
+package com.movie_bd.repository;
+
+import com.movie_bd.model.Avaliacao;
+import com.movie_bd.model.Avaliacao_Serie;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface Avaliacao_SerieRepository extends JpaRepository<Avaliacao_Serie, Long> {
+
+    @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr WHERE asr.serie.ID_SERIE = :idSerie")
+    List<Avaliacao> findAvaliacoesBySerieId(@Param("idSerie") Long ID_SERIE);
+
+    @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr " +
+            "WHERE asr.serie.ID_SERIE = :idSerie ORDER BY asr.avaliacao.Data_Avaliacao DESC")
+    List<Avaliacao> findAvaliacoesRecentesPorSerie(@Param("idSerie") Long ID_SERIE);
+
+    @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr " +
+            "WHERE asr.serie.ID_SERIE = :idSerie AND asr.avaliacao.Nota > :notaMinima")
+    List<Avaliacao> findAvaliacoesComNotaMaiorQue(
+            @Param("idSerie") Long idSerie,
+            @Param("notaMinima") int notaMinima
+    );
+}
