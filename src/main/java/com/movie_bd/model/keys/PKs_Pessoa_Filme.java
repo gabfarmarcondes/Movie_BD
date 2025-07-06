@@ -1,9 +1,6 @@
 package com.movie_bd.model.keys;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,6 +8,8 @@ import java.io.Serializable;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class PKs_Pessoa_Filme implements Serializable {
     private Long ID_Pessoa;
 

@@ -2,6 +2,7 @@ package com.movie_bd.repository;
 
 import com.movie_bd.model.Pessoa_Atua_Serie;
 import com.movie_bd.model.Serie;
+import com.movie_bd.model.keys.PKs_Pessoa_Serie;
 import com.movie_bd.repository.auxiliar.ElencoProjecao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface Pessoa_Atua_SerieRepository extends JpaRepository<Pessoa_Atua_Serie, Long> {
+public interface Pessoa_Atua_SerieRepository extends JpaRepository<Pessoa_Atua_Serie, PKs_Pessoa_Serie> {
 
     Optional<Pessoa_Atua_Serie> findByPessoa_ID_PessoaAndSerie_ID_Serie(Long ID_Pessoa, Long ID_SERIE);
 
