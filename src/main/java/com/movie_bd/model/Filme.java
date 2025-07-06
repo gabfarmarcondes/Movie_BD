@@ -19,23 +19,23 @@ public class Filme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_Filme;
+    private Long idFilme;
 
     @Column(unique = true, nullable = false, length = 50)
-    private String Titulo;
+    private String titulo;
 
     @Column(unique = true, nullable = false)
-    private String Sinopse;
+    private String sinopse;
 
     @Column(nullable = false)
-    private String Genero;
+    private String genero;
 
     @Column(nullable = false)
-    private LocalTime Duracao;
+    private LocalTime duracao;
 
     @Column(nullable = false)
-    private Date Data_Lancamento;
+    private Date dataLancamento;
 
-    @OneToMany(mappedBy = "ID_Filme", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Pessoa_Atua_Filme> pessoa_atua_filmes = new ArrayList<>();
+    @OneToMany(mappedBy = "idFilme", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Pessoa_Atua_Filme> pessoaAtuaFilmes = new ArrayList<>();
 }

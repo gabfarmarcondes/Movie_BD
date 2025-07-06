@@ -29,13 +29,13 @@ public class AvaliacaoServices {
 
     @Transactional(readOnly = true)
     public ResponseEntity<List<Avaliacao>> getByUsuarioId(Long idUsuario) {
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findByID_USUARIO_ID_USUARIO(idUsuario);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByUsuarioIdUsuario(idUsuario);
         return ResponseEntity.ok(avaliacoes);
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<List<Avaliacao>> getNotasOrdenadas(int Nota) {
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findNotasOrdenadas(Nota);
+    public ResponseEntity<List<Avaliacao>> getNotasOrdenadas(int nota) {
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findNotasOrdenadas(nota);
         return ResponseEntity.ok(avaliacoes);
     }
 
@@ -58,9 +58,9 @@ public class AvaliacaoServices {
 
         avaliacaoExistente.setNota(dadosAvaliacao.getNota());
         avaliacaoExistente.setComentario(dadosAvaliacao.getComentario());
-        avaliacaoExistente.setTipo_Conteudo_Avaliacao(dadosAvaliacao.getTipo_Conteudo_Avaliacao());
-        avaliacaoExistente.setData_Avaliacao(dadosAvaliacao.getData_Avaliacao());
-        avaliacaoExistente.setID_Conteudo_Avaliacao(dadosAvaliacao.getID_Conteudo_Avaliacao());
+        avaliacaoExistente.setIdConteudoAvaliacao(dadosAvaliacao.getIdConteudoAvaliacao());
+        avaliacaoExistente.setDataAvaliacao(dadosAvaliacao.getDataAvaliacao());
+        avaliacaoExistente.setIdConteudoAvaliacao(dadosAvaliacao.getIdConteudoAvaliacao());
 
         Avaliacao avaliacaoAtualizada = avaliacaoRepository.save(avaliacaoExistente);
         return ResponseEntity.ok(avaliacaoAtualizada);

@@ -30,8 +30,8 @@ public class FilmeServices {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<List<Filme>> findFilmesEntre2000e2010(Date Data_Lancamento) {
-        List<Filme> filmes = filmeRepository.findFilmesEntre2000e2010(Data_Lancamento);
+    public ResponseEntity<List<Filme>> findFilmesEntre2000e2010(Date dataLancamento) {
+        List<Filme> filmes = filmeRepository.findFilmesEntre2000e2010(dataLancamento);
         return ResponseEntity.ok(filmes);
     }
 
@@ -56,7 +56,7 @@ public class FilmeServices {
         filmeExistente.setSinopse(dadosFilme.getSinopse());
         filmeExistente.setGenero(dadosFilme.getGenero());
         filmeExistente.setDuracao(dadosFilme.getDuracao());
-        filmeExistente.setData_Lancamento(dadosFilme.getData_Lancamento());
+        filmeExistente.setDataLancamento(dadosFilme.getDataLancamento());
 
         Filme filmeAtualizado = filmeRepository.save(filmeExistente);
         return ResponseEntity.ok(filmeAtualizado);

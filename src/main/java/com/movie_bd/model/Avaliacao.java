@@ -18,24 +18,24 @@ public class Avaliacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_Avaliacao;
+    private Long idAvaliacao;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario ID_USUARIO;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @Column(nullable = false)
-    private int Nota;
+    private int nota;
 
     @Column(nullable = false)
-    private String Comentario;
+    private String comentario;
 
     @Column(nullable = false, length = 10)
-    private String Tipo_Conteudo_Avaliacao;
+    private String tipoConteudoAvaliacao;
 
     @Column(nullable = false)
-    private Date Data_Avaliacao;
+    private Date dataAvaliacao;
 
     @Column(nullable = false)
-    private int ID_Conteudo_Avaliacao;
+    private int idConteudoAvaliacao;
 }

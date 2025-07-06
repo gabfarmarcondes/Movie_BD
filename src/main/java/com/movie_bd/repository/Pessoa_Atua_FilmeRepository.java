@@ -14,12 +14,12 @@ import java.util.List;
 @Repository
 public interface Pessoa_Atua_FilmeRepository extends JpaRepository<Pessoa_Atua_Filme, PKs_Pessoa_Filme> {
 
-    @Query("SELECT paf.filme FROM Pessoa_Atua_Filme paf WHERE paf.pessoa.ID_Pessoa = :ID_Pessoa")
-    List<Filme> findFilmeByPessoaId(@Param("idPessoa") Long ID_Pessoa);
+    @Query("SELECT paf.filme FROM Pessoa_Atua_Filme paf WHERE paf.pessoa.idPessoa = :idPessoa")
+    List<Filme> findFilmeByPessoaId(@Param("idPessoa") Long idPessoa);
 
-    @Query("SELECT * FROM Pessoa_Atua_Filme paf WHERE paf.Funcao = :funcao")
-    List<Pessoa> findPessoaByFuncao(@Param("funcao") String Funcao);
+    @Query("SELECT paf.pessoa FROM Pessoa_Atua_Filme paf WHERE paf.funcao = :funcao")
+    List<Pessoa> findPessoaByFuncao(@Param("funcao") String funcao);
 
-    @Query("SELECT COUNT(paf) FROM Pessoa_Atua_Filme paf WHERE paf.pessoa.ID_Pessoa = :idPessoa")
+    @Query("SELECT COUNT(paf) FROM Pessoa_Atua_Filme paf WHERE paf.pessoa.idPessoa = :idPessoa")
     Long countFilmesPorPessoa(@Param("idPessoa") Long idPessoa);
 }

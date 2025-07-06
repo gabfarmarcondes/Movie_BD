@@ -18,29 +18,29 @@ public class Serie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_SERIE;
+    private Long idSerie;
 
     @Column(unique = true, nullable = false, length = 50)
-    private String Titulo;
+    private String titulo;
 
     @Column(unique = true, nullable = false)
-    private String Sinopse;
+    private String sinopse;
 
     @Column(nullable = false)
-    private int QTDE_Temporadas;
+    private int qtdeTemporadas;
 
     @Column(nullable = false)
-    private String Genero;
+    private String genero;
 
     @Column(nullable = false)
-    private int Ano_Inicio;
+    private int anoInicio;
 
     @Column(nullable = false)
-    private int Ano_Fim;
+    private int anoFim;
 
-    @OneToMany(mappedBy = "ID_Serie", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Pessoa_Atua_Serie> pessoa_atua_series = new ArrayList<>();
+    @OneToMany(mappedBy = "idSerie", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Pessoa_Atua_Serie> pessoaAtuaSeries = new ArrayList<>();
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Avaliacao_Serie> avaliacao_series = new ArrayList<>();
+    List<Avaliacao_Serie> avaliacaoSeries = new ArrayList<>();
 }

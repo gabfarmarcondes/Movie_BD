@@ -11,19 +11,19 @@ import java.util.List;
 @Repository
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
 
-    @Query("SELECT a.Tipo_Conteudo_Avaliacao, a.Data_Avaliacao, a.Comentario " +
+    @Query("SELECT a.tipoConteudoAvaliacao, a.dataAvaliacao, a.comentario " +
             "FROM Avaliacao a " +
-            "WHERE a.Nota >= :notaMaior")
-    List<Avaliacao> findNotasMaioresQue(@Param("notaMaior") int Nota);
+            "WHERE a.nota >= :notaMaior")
+    List<Avaliacao> findNotasMaioresQue(@Param("notaMaior") int nota);
 
-    List<Avaliacao> findByID_USUARIO_ID_USUARIO(Long idUsuario);
+    List<Avaliacao> findByUsuarioIdUsuario(Long idUsuario);
 
-    @Query("SELECT a.ID_USUARIO, a.Nota " +
+    @Query("SELECT a.usuario, a.nota " +
             "FROM Avaliacao a " +
-            "WHERE a.Nota >= :notaMinima O" +
-            "RDER BY a.Data_Avaliacao DESC")
-    List<Avaliacao> findNotasOrdenadas(@Param("notaMinima") int Nota);
+            "WHERE a.nota >= :notaMinima O" +
+            "RDER BY a.dataAvaliacao DESC")
+    List<Avaliacao> findNotasOrdenadas(@Param("notaMinima") int nota);
 
-    @Query("SELECT COUNT(a) FROM Avaliacao a WHERE a.Tipo_Conteudo_Avaliacao = :tipoConteudo")
-    long countPorTipoDeConteudo(@Param("tipoConteudo") String Tipo_Conteudo_Avaliacao);
+    @Query("SELECT COUNT(a) FROM Avaliacao a WHERE a.tipoConteudoAvaliacao = :tipoConteudo")
+    long countPorTipoDeConteudo(@Param("tipoConteudo") String tipoConteudoAvaliacao);
 }

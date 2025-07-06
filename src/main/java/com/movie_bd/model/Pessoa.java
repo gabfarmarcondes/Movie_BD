@@ -19,26 +19,26 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_Pessoa;
+    private Long idPessoa;
 
     @Column(nullable = false, length = 50)
-    private String Pnome;
+    private String pnome;
 
     @Column(nullable = false, length = 1)
-    private String Minicial;
+    private String minicial;
 
     @Column(nullable = false, length = 50)
-    private String Unome;
+    private String unome;
 
     @Column(nullable = false, length = 30)
-    private String Nacionalidade;
+    private String nacionalidade;
 
     @Column(nullable = false)
-    private Date Data_Nascimento;
+    private Date dataNascimento;
 
-    @OneToMany(mappedBy = "ID_Pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Pessoa_Atua_Filme> pessoa_atua_filmes = new ArrayList<>();
+    @OneToMany(mappedBy = "idPessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Pessoa_Atua_Filme> pessoaAtuaFilmes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ID_Pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Pessoa_Atua_Serie> pessoa_atua_series = new ArrayList<>();
+    @OneToMany(mappedBy = "idPessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Pessoa_Atua_Serie> pessoaAtuaSeries = new ArrayList<>();
 }

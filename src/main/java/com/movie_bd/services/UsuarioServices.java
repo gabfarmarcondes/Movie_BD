@@ -23,7 +23,7 @@ public class UsuarioServices {
 
     @Transactional(readOnly = true)
     public ResponseEntity<Usuario> getUsuarioByNomeUsuario(String nomeUsuario) {
-        return usuarioRepository.findUsuarioByNome_Usuario(nomeUsuario)
+        return usuarioRepository.findByNomeUsuario(nomeUsuario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -51,11 +51,11 @@ public class UsuarioServices {
         Usuario usuarioExistente = usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + idUsuario));
 
-        usuarioExistente.setNome_Usuario(dadosUsuario.getNome_Usuario());
+        usuarioExistente.setNomeUsuario(dadosUsuario.getNomeUsuario());
         usuarioExistente.setEmail(dadosUsuario.getEmail());
         usuarioExistente.setSenha(dadosUsuario.getSenha());
-        usuarioExistente.setStatus_Solicitacao_Critico(dadosUsuario.isStatus_Solicitacao_Critico());
-        usuarioExistente.setData_Cadastro(dadosUsuario.getData_Cadastro());
+        usuarioExistente.setStatusSolicitacaoCritico(dadosUsuario.isStatusSolicitacaoCritico());
+        usuarioExistente.setDataCadastro(dadosUsuario.getDataCadastro());
 
         Usuario usuarioAtualizado = usuarioRepository.save(usuarioExistente);
         return ResponseEntity.ok(usuarioAtualizado);

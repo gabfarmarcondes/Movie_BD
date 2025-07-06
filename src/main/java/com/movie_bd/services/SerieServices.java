@@ -54,10 +54,10 @@ public class SerieServices {
 
         serieExistente.setTitulo(dadosSerie.getTitulo());
         serieExistente.setSinopse(dadosSerie.getSinopse());
-        serieExistente.setQTDE_Temporadas(dadosSerie.getQTDE_Temporadas());
+        serieExistente.setQtdeTemporadas(dadosSerie.getQtdeTemporadas());
         serieExistente.setGenero(dadosSerie.getGenero());
-        serieExistente.setAno_Inicio(dadosSerie.getAno_Inicio());
-        serieExistente.setAno_Fim(dadosSerie.getAno_Fim());
+        serieExistente.setAnoInicio(dadosSerie.getAnoInicio());
+        serieExistente.setAnoFim(dadosSerie.getAnoFim());
 
         Serie serieAtualizada = serieRepository.save(serieExistente);
         return ResponseEntity.ok(serieAtualizada);

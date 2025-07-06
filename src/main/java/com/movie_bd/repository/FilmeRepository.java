@@ -13,17 +13,17 @@ import java.util.List;
 @Repository
 public interface FilmeRepository extends JpaRepository<Filme, Long> {
 
-    List<Filme> findFilmesByGenero(String Genero);
+    List<Filme> findFilmesByGenero(String genero);
 
-    @Query("SELECT f.Titulo, f.Genero, f.Genero " +
+    @Query("SELECT f.titulo, f.duracao, f.genero " +
             "FROM Filme f " +
-            "WHERE f.Data_Lancamento BETWEEN 2000-01-01 AND 2010-12-31")
-    List<Filme> findFilmesEntre2000e2010(Date Data_Lancamento);
+            "WHERE YEAR(f.dataLancamento) BETWEEN 2000-01-01 AND 2010-12-31")
+    List<Filme> findFilmesEntre2000e2010(Date dataLancamento);
 
 
-    @Query("SELECT f.Titulo, f.Duracao, f.Genero " +
+    @Query("SELECT f.titulo, f.duracao, f.genero " +
             "FROM Filme f " +
-            "WHERE f.Duracao >= :duracaoMinima")
+            "WHERE f.duracao >= :duracaoMinima")
     List<Filme> findFilmesComDuracaoMaiorOuIgualA(
-            @Param("duracaoMinima") LocalTime Duracao);
+            @Param("duracaoMinima") LocalTime duracao);
 }

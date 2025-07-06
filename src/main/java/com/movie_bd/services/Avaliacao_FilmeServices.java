@@ -23,22 +23,22 @@ public class Avaliacao_FilmeServices {
         this.afRepository = afRepository;
     }
 
-    public ResponseEntity<Avaliacao_Filme> getAvaliacoesByFilmeId(Long ID_Filme){
-        List<Avaliacao> avaliacoes = afRepository.findAvaliacoesByFilmeId(ID_Filme);
+    public ResponseEntity<Avaliacao_Filme> getAvaliacoesByFilmeId(Long idFilme){
+        List<Avaliacao> avaliacoes = afRepository.findAvaliacoesByFilmeId(idFilme);
 
         return avaliacoes.isEmpty()
                 ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Integer> getMediaDeNotasPorFilme(Long ID_Filme){
-        int media = afRepository.findMediaDeNotasPorFilme(ID_Filme);
+    public ResponseEntity<Integer> getMediaDeNotasPorFilme(Long idFilme){
+        int media = afRepository.findMediaDeNotasPorFilme(idFilme);
         if(media <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(media, HttpStatus.OK);
     }
 
-    public ResponseEntity<Long> getCountByFilme_ID_Filme(Long ID_Filme){
-        long contagem = afRepository.countByFilme_ID_Filme(ID_Filme);
+    public ResponseEntity<Long> getCountByFilme_ID_Filme(Long idFilme){
+        long contagem = afRepository.countByFilmeIdFilme(idFilme);
         if (contagem <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(contagem, HttpStatus.OK);
     }
@@ -56,8 +56,8 @@ public class Avaliacao_FilmeServices {
 
     public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> update(Long idFilme, Long idAvaliacao, Avaliacao_Filme dadosAtualizados) {
         PKs_Avaliacao_Filme pk = new PKs_Avaliacao_Filme();
-        pk.setID_Filme(idFilme);
-        pk.setID_Avaliacao(idAvaliacao);
+        pk.setIdFilme(idFilme);
+        pk.setIdAvaliacao(idAvaliacao);
 
         Avaliacao_Filme af = afRepository.findById(pk)
                 .orElseThrow(() -> new RuntimeException("Avaliacao Filme not found"));
@@ -67,10 +67,10 @@ public class Avaliacao_FilmeServices {
                 .body(new ResponseWrapper<>("Avaliacao Atualizada", af));
     }
 
-    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> delete(Long ID_Filme, Long ID_Avaliacao) {
+    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> delete(Long idFilme, Long idAvaliacao) {
         PKs_Avaliacao_Filme pk = new PKs_Avaliacao_Filme();
-        pk.setID_Filme(ID_Filme);
-        pk.setID_Avaliacao(ID_Avaliacao);
+        pk.setIdFilme(idFilme);
+        pk.setIdAvaliacao(idAvaliacao);
 
         Avaliacao_Filme af = afRepository.findById(pk)
                 .orElseThrow(() -> new RuntimeException("Avaliacao Filme not found"));

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PKs_Avaliacao_Serie implements Serializable {
-    private Long ID_Serie;
+    private Long idSerie;
 
-    private Long ID_Avaliacao;
+    private Long idAvaliacao;
 }

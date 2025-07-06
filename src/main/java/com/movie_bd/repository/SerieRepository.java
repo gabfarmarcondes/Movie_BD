@@ -13,20 +13,20 @@ import java.util.Optional;
 @Repository
 public interface SerieRepository extends JpaRepository<Serie, Long> {
 
-    Optional<Serie> findSerieByTitulo(String Titulo);
+    Optional<Serie> findSerieByTitulo(String titulo);
 
-    @Query("SELECT s.Titulo, s.Genero, s.QTDE_Temporadas " +
+    @Query("SELECT s.titulo, s.genero, s.qtdeTemporadas " +
             "FROM Serie s " +
-            "WHERE s.QTDE_Temporadas >= :temporadas")
-    List<Serie> findSeriesComMaisTemporadasQue(@Param("temporadas") int QTDE_Temporadas);
+            "WHERE s.qtdeTemporadas >= :temporadas")
+    List<Serie> findSeriesComMaisTemporadasQue(@Param("temporadas") int qtdeTemporadas);
 
-    @Query("SELECT s.Titulo, s.Genero, (s.Ano_Fim - s.Ano_Inicio) as duracaoEmAnos " +
+    @Query("SELECT s.titulo, s.genero, (s.anoFim - s.anoInicio) as duracaoEmAnos " +
             "FROM Serie s " +
-            "WHERE s.Ano_Inicio >= :anoDe " +
-            "   AND s.Ano_Fim <= :anoAte " +
-            "   AND s.Ano_Fim IS NOT NULL")
+            "WHERE s.anoInicio >= :anoDe " +
+            "   AND s.anoFim <= :anoAte " +
+            "   AND s.anoFim IS NOT NULL")
     List<SerieDuracao> findTempoParaFazerSerie(
-            @Param("anoDe") int Ano_Inicio,
-            @Param("anoAte") int Ano_Fim
+            @Param("anoDe") int anoInicio,
+            @Param("anoAte") int anoFim
     );
 }

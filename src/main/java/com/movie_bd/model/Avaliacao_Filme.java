@@ -16,18 +16,18 @@ import lombok.Setter;
 public class Avaliacao_Filme {
 
     @Id
-    private Long ID_Filme;
+    private Long idFilme;
 
     @Id
-    private Long ID_Avaliacao;
+    private Long idAvaliacao;
 
-    @MapsId("ID_Filme")
+    @MapsId("idFilme")
     @ManyToOne
-    @JoinColumn(name = "ID_Filme", nullable = false)
+    @JoinColumn(name = "idFilme", nullable = false)
     private Filme filme;
 
-    @MapsId("ID_Avaliacao")
+    @MapsId("idAvaliacao")
     @ManyToOne
-    @JoinColumn(name = "ID_Avaliacao", nullable = false)
+    @JoinColumn(name = "idAvaliacao", nullable = false)
     private Avaliacao avaliacao;
 }

@@ -17,21 +17,21 @@ import lombok.Setter;
 public class Pessoa_Atua_Serie {
 
     @Id
-    private Long ID_Pessoa;
+    private Long idPessoa;
 
-    @MapsId("ID_Pessoa")
+    @MapsId("idPessoa")
     @ManyToOne
-    @JoinColumn(name = "ID_Pessoa")
+    @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
 
     @Id
-    private Long ID_Serie;
+    private Long idSerie;
 
-    @MapsId("ID_Serie")
+    @MapsId("idSerie")
     @ManyToOne
-    @JoinColumn(name = "ID_Serie")
+    @JoinColumn(name = "idSerie")
     private Serie serie;
 
     @Column(nullable = false, length = 30)
-    private String Funcao;
+    private String funcao;
 }

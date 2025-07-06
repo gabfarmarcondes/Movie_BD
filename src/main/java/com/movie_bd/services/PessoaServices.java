@@ -61,7 +61,7 @@ public class PessoaServices {
         pessoaExistente.setMinicial(dadosPessoa.getMinicial());
         pessoaExistente.setUnome(dadosPessoa.getUnome());
         pessoaExistente.setNacionalidade(dadosPessoa.getNacionalidade());
-        pessoaExistente.setData_Nascimento(dadosPessoa.getData_Nascimento());
+        pessoaExistente.setDataNascimento(dadosPessoa.getDataNascimento());
 
         Pessoa pessoaAtualizada = pessoaRepository.save(pessoaExistente);
         return ResponseEntity.ok(pessoaAtualizada);

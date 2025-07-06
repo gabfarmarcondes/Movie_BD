@@ -12,21 +12,21 @@ import java.util.List;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-    List<Pessoa> findPessoaByNacionalidade(String Nacionalidade);
+    List<Pessoa> findPessoaByNacionalidade(String nacionalidade);
 
-    List<Pessoa> findPessoaByDataNascimento(Date Data_Nascimento);
+    List<Pessoa> findPessoaByDataNascimento(Date dataNascimento);
 
     @Query("SELECT p FROM Pessoa p " +
-            "JOIN p.pessoa_atua_filmes paf " +
+            "JOIN p.pessoaAtuaFilmes paf " +
             "JOIN paf.filme f " +
-            "WHERE f.Titulo = :Titulo")
+            "WHERE f.titulo = :titulo")
     List<Pessoa> findPessoasByTituloDeFilme(
-            @Param("tituloFilme")  String Titulo);
+            @Param("tituloFilme")  String titulo);
 
     @Query("SELECT p FROM Pessoa p " +
-            "JOIN p.pessoa_atua_series pas " +
+            "JOIN p.pessoaAtuaSeries pas " +
             "JOIN pas.serie s " +
-            "WHERE s.Titulo = :tituloSerie")
+            "WHERE s.titulo = :tituloSerie")
     List<Pessoa> findPessoasByTituloDeSerie(
-            @Param("tituloSerie")  String Titulo);
+            @Param("tituloSerie")  String titulo);
 }

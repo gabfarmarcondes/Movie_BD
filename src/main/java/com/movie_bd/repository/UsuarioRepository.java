@@ -10,14 +10,14 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Optional<Usuario> findUsuarioByNome_Usuario(String Nome_Usuario);
+    Optional<Usuario> findByNomeUsuario(String nomeUsuario);
 
-    @Query("SELECT u.Nome_Usuario, u.Email " +
+    @Query("SELECT u.nomeUsuario, u.email " +
             "FROM Usuario u " +
-            "WHERE u.Status_Solicitacao_Critico = TRUE ")
-    List<Usuario> findUsuarioByStatusSolicitacaoCritico(boolean Status_Solicitacao_Critico);
+            "WHERE u.statusSolicitacaoCritico = TRUE ")
+    List<Usuario> findUsuarioByStatusSolicitacaoCritico(boolean statusSolicitacaoCritico);
 
-    @Query("SELECT DISTINCT u.Nome_Usuario " +
+    @Query("SELECT DISTINCT u.nomeUsuario " +
             "FROM Usuario u " +
             "JOIN u.avaliacoes a")
     List<String> findNomesDeUsuariosComAvaliacoes();

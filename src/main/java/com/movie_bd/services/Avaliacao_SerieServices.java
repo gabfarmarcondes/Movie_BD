@@ -34,14 +34,14 @@ public class Avaliacao_SerieServices {
     }
 
     @Transactional(readOnly = true)
-    public List<Avaliacao> findAvaliacoesComNotaMaiorQue(Long idSerie, int notaMinima) {
-        return asRepository.findAvaliacoesComNotaMaiorQue(idSerie, notaMinima);
+    public List<Avaliacao> findAvaliacoesComNotaMaiorQue(Long idSerie, int nota) {
+        return asRepository.findAvaliacoesComNotaMaiorQue(idSerie, nota);
     }
 
     @Transactional
     public Avaliacao_Serie criarAvaliacao(Avaliacao_Serie avaliacaoSerie) {
         if (avaliacaoSerie.getAvaliacao() != null) {
-            avaliacaoSerie.getAvaliacao().setData_Avaliacao(Date.valueOf(LocalDate.now()));
+            avaliacaoSerie.getAvaliacao().setIdAvaliacao(Date.valueOf(LocalDate.now()).getTime());
         }
         return asRepository.save(avaliacaoSerie);
     }
@@ -54,7 +54,7 @@ public class Avaliacao_SerieServices {
         Avaliacao avaliacaoParaAtualizar = avaliacaoExistente.getAvaliacao();
         avaliacaoParaAtualizar.setNota(dadosAtualizacao.getNota());
         avaliacaoParaAtualizar.setComentario(dadosAtualizacao.getComentario());
-        avaliacaoParaAtualizar.setData_Avaliacao(Date.valueOf(LocalDate.now()));
+        avaliacaoParaAtualizar.setDataAvaliacao(Date.valueOf(LocalDate.now()));
 
         return asRepository.save(avaliacaoExistente);
     }

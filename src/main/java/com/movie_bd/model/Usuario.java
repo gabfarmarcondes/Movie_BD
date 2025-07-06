@@ -19,26 +19,26 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_USUARIO;
+    private Long idUsuario;
 
     @Column(unique = true, nullable = false)
-    private String Nome_Usuario;
+    private String nomeUsuario;
 
     @Column(unique = true, nullable = false)
-    private String Email;
+    private String email;
 
     @Column(nullable = false)
-    private String Senha;
+    private String senha;
 
     @Column(nullable = false)
-    private boolean Status_Solicitacao_Critico;
+    private boolean statusSolicitacaoCritico;
 
     @Column(nullable = false)
-    private Date Data_Cadastro;
+    private Date dataCadastro;
 
     @Column(nullable = false, length = 20)
-    private String Tipo_Usuario;
+    private String tipoUsuario;
 
-    @OneToMany(mappedBy = "ID_USUARIO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Avaliacao> avaliacoes = new HashSet<>();
 }

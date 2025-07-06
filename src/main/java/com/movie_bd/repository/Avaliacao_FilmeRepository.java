@@ -13,11 +13,11 @@ import java.util.List;
 @Repository
 public interface Avaliacao_FilmeRepository extends JpaRepository<Avaliacao_Filme, PKs_Avaliacao_Filme> {
 
-    @Query("SELECT af.avaliacao FROM Avaliacao_Filme af WHERE af.filme.ID_Filme = :idFilme")
-    List<Avaliacao> findAvaliacoesByFilmeId(@Param("idFilme") Long ID_Filme);
+    @Query("SELECT af.avaliacao FROM Avaliacao_Filme af WHERE af.filme.idFilme = :idFilme")
+    List<Avaliacao> findAvaliacoesByFilmeId(@Param("idFilme") Long idFilme);
 
-    @Query("SELECT AVG(af.avaliacao.Nota) FROM Avaliacao_Filme af WHERE af.filme.ID_Filme = :idFilme")
-    int findMediaDeNotasPorFilme(@Param("idFilme") Long ID_Filme);
+    @Query("SELECT AVG(af.avaliacao.nota) FROM Avaliacao_Filme af WHERE af.filme.idFilme = :idFilme")
+    int findMediaDeNotasPorFilme(@Param("idFilme") Long idFilme);
 
-    long countByFilme_ID_Filme(Long idFilme);
+    long countByFilmeIdFilme(Long idFilme);
 }

@@ -15,14 +15,11 @@ import java.util.Optional;
 @Repository
 public interface Pessoa_Atua_SerieRepository extends JpaRepository<Pessoa_Atua_Serie, PKs_Pessoa_Serie> {
 
-    Optional<Pessoa_Atua_Serie> findByPessoa_ID_PessoaAndSerie_ID_Serie(Long ID_Pessoa, Long ID_SERIE);
+    @Query("SELECT pas.serie FROM Pessoa_Atua_Serie pas WHERE pas.pessoa.idPessoa = :idPessoa")
+    List<Serie> findByPessoaIdPessoaAndSerieIdSerie(@Param("ID_Pessoa") Long idPessoa);
 
-
-    @Query("SELECT pas.serie FROM Pessoa_Atua_Serie pas WHERE pas.pessoa.ID_Pessoa = :ID_Pessoa")
-    List<Serie> findSeriesByPessoaId(@Param("ID_Pessoa") Long ID_Pessoa);
-
-    @Query("SELECT p.Pnome || ' ' || p.Unome AS nomeCompleto, pas.Funcao AS funcao " +
+    @Query("SELECT CONCAT(p.pnome, ' ', p.unome) AS nomeCompleto, pas.funcao AS funcao " +
             "FROM Pessoa_Atua_Serie pas JOIN pas.pessoa p " +
-            "WHERE pas.serie.ID_SERIE = :ID_SERIE")
-    List<ElencoProjecao> findElencoDaSerie(@Param("ID_SERIE") Long ID_SERIE);
+            "WHERE pas.serie.idSerie = :idSerie")
+    List<ElencoProjecao> findElencoDaSerie(@Param("idSerie") Long idSerie);
 }

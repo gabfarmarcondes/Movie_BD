@@ -13,17 +13,17 @@ import java.util.List;
 @Repository
 public interface Avaliacao_SerieRepository extends JpaRepository<Avaliacao_Serie, PKs_Pessoa_Serie> {
 
-    @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr WHERE asr.serie.ID_SERIE = :idSerie")
-    List<Avaliacao> findAvaliacoesBySerieId(@Param("idSerie") Long ID_SERIE);
+    @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr WHERE asr.serie.idSerie = :idSerie")
+    List<Avaliacao> findAvaliacoesBySerieId(@Param("idSerie") Long idSerie);
 
     @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr " +
-            "WHERE asr.serie.ID_SERIE = :idSerie ORDER BY asr.avaliacao.Data_Avaliacao DESC")
-    List<Avaliacao> findAvaliacoesRecentesPorSerie(@Param("idSerie") Long ID_SERIE);
+            "WHERE asr.serie.idSerie = :idSerie ORDER BY asr.avaliacao.dataAvaliacao DESC")
+    List<Avaliacao> findAvaliacoesRecentesPorSerie(@Param("idSerie") Long idSerie);
 
     @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr " +
-            "WHERE asr.serie.ID_SERIE = :idSerie AND asr.avaliacao.Nota > :notaMinima")
+            "WHERE asr.serie.idSerie = :idSerie AND asr.avaliacao.nota > :notaMinima")
     List<Avaliacao> findAvaliacoesComNotaMaiorQue(
             @Param("idSerie") Long idSerie,
-            @Param("notaMinima") int notaMinima
+            @Param("notaMinima") int nota
     );
 }

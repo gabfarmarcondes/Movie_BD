@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class PKs_Pessoa_Filme implements Serializable {
-    private Long ID_Pessoa;
+    private Long idPessoa;
 
-    private Long ID_Filme;
+    private Long idFilme;
 }
