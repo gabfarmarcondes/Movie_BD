@@ -2,6 +2,7 @@ package com.movie_bd.repository;
 
 import com.movie_bd.model.Avaliacao;
 import com.movie_bd.model.Avaliacao_Serie;
+import com.movie_bd.model.keys.PKs_Pessoa_Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface Avaliacao_SerieRepository extends JpaRepository<Avaliacao_Serie, Long> {
+public interface Avaliacao_SerieRepository extends JpaRepository<Avaliacao_Serie, PKs_Pessoa_Serie> {
 
     @Query("SELECT asr.avaliacao FROM Avaliacao_Serie asr WHERE asr.serie.ID_SERIE = :idSerie")
     List<Avaliacao> findAvaliacoesBySerieId(@Param("idSerie") Long ID_SERIE);
