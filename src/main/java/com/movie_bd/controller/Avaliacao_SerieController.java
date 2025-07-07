@@ -2,9 +2,11 @@ package com.movie_bd.controller;
 
 import com.movie_bd.model.Avaliacao;
 import com.movie_bd.model.Avaliacao_Serie;
+import com.movie_bd.model.keys.PKs_Avaliacao_Serie;
 import com.movie_bd.model.keys.PKs_Pessoa_Serie;
 import com.movie_bd.services.Avaliacao_SerieServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,20 +39,21 @@ public class Avaliacao_SerieController {
     }
 
     @PostMapping("/criar")
-    public Avaliacao_Serie criarAvaliacao(@RequestBody Avaliacao_Serie avaliacaoSerie) {
+    public ResponseEntity<Avaliacao_Serie> criarAvaliacao(@RequestBody Avaliacao_Serie avaliacaoSerie) {
         return asServices.criarAvaliacao(avaliacaoSerie);
     }
 
-    @PutMapping("/atualizar/{idPessoa}/{idSerie}")
-    public Avaliacao_Serie atualizarAvaliacao(
-            @PathVariable Long idPessoa, @PathVariable Long idSerie, @RequestBody Avaliacao dadosAtualizacao) {
-        PKs_Pessoa_Serie id = new PKs_Pessoa_Serie(idPessoa, idSerie);
-        return asServices.atualizarAvaliacao(id, dadosAtualizacao);
+    @PutMapping("/atualizar/{idAvaliacao}/{idSerie}")
+    public ResponseEntity<Avaliacao_Serie> atualizarAvaliacao(
+            @PathVariable Long idAvaliacao,
+            @PathVariable Long idSerie,
+            @RequestBody Avaliacao_Serie dadosAtualizados) {
+        return asServices.atualizarAvaliacao(idSerie, idAvaliacao, dadosAtualizados);
     }
 
-    @DeleteMapping("/deletar/{idPessoa}/{idSerie}")
-    public void deletarAvaliacaoPorId(@PathVariable Long idPessoa, @PathVariable Long idSerie) {
-        PKs_Pessoa_Serie id = new PKs_Pessoa_Serie(idPessoa, idSerie);
+    @DeleteMapping("/deletar/{idAvaliacao}/{idSerie}")
+    public void deletarAvaliacaoPorId(@PathVariable Long idAvaliacao, @PathVariable Long idSerie) {
+        PKs_Avaliacao_Serie id = new PKs_Avaliacao_Serie(idAvaliacao, idSerie);
         asServices.deletarAvaliacaoPorId(id);
     }
 }

@@ -9,27 +9,23 @@ import lombok.Setter;
 
 
 @Entity
-@IdClass(PKs_Pessoa_Serie.class)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pessoa_Atua_Serie {
 
-    @Id
-    private Long idPessoa;
+    @EmbeddedId
+    private PKs_Pessoa_Serie id = new PKs_Pessoa_Serie();
 
     @MapsId("idPessoa")
     @ManyToOne
-    @JoinColumn(name = "idPessoa")
+    @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
-
-    @Id
-    private Long idSerie;
 
     @MapsId("idSerie")
     @ManyToOne
-    @JoinColumn(name = "idSerie")
+    @JoinColumn(name = "id_serie")
     private Serie serie;
 
     @Column(nullable = false, length = 30)

@@ -39,6 +39,6 @@ public class Usuario {
     @Column(nullable = false, length = 20)
     private String tipoUsuario;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario")
     private Set<Avaliacao> avaliacoes = new HashSet<>();
 }

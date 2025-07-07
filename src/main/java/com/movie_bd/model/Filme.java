@@ -36,6 +36,6 @@ public class Filme {
     @Column(nullable = false)
     private Date dataLancamento;
 
-    @OneToMany(mappedBy = "idFilme", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "filme", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Pessoa_Atua_Filme> pessoaAtuaFilmes = new ArrayList<>();
 }

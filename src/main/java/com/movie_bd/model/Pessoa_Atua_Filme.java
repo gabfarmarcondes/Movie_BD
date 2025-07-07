@@ -9,18 +9,14 @@ import lombok.Setter;
 
 
 @Entity
-@IdClass(PKs_Pessoa_Filme.class)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pessoa_Atua_Filme {
 
-    @Id
-    private Long idPessoa;
-
-    @Id
-    private Long idFilme;
+    @EmbeddedId
+    private PKs_Pessoa_Filme id = new PKs_Pessoa_Filme();
 
     @MapsId("idPessoa")
     @ManyToOne

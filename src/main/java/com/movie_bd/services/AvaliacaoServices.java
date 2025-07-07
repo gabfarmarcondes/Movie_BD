@@ -1,7 +1,9 @@
 package com.movie_bd.services;
 
 import com.movie_bd.model.Avaliacao;
+import com.movie_bd.model.Usuario;
 import com.movie_bd.repository.AvaliacaoRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,12 @@ import java.util.List;
 public class AvaliacaoServices {
 
     private final AvaliacaoRepository avaliacaoRepository;
+    private final EntityManager entityManager;
 
     @Autowired
-    public AvaliacaoServices(AvaliacaoRepository avaliacaoRepository) {
+    public AvaliacaoServices(AvaliacaoRepository avaliacaoRepository, EntityManager entityManager) {
         this.avaliacaoRepository = avaliacaoRepository;
+        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
@@ -47,9 +51,14 @@ public class AvaliacaoServices {
 
     @Transactional
     public ResponseEntity<Avaliacao> createAvaliacao(Avaliacao avaliacao) {
+        if (avaliacao.getUsuario() != null && avaliacao.getUsuario().getIdUsuario() != null) {
+            Usuario usuarioRef = entityManager.getReference(Usuario.class, avaliacao.getUsuario().getIdUsuario());
+            avaliacao.setUsuario(usuarioRef);
+        }
         Avaliacao novaAvaliacao = avaliacaoRepository.save(avaliacao);
         return new ResponseEntity<>(novaAvaliacao, HttpStatus.CREATED);
     }
+
 
     @Transactional
     public ResponseEntity<Avaliacao> updateAvaliacao(Long idAvaliacao, Avaliacao dadosAvaliacao) {
@@ -58,9 +67,7 @@ public class AvaliacaoServices {
 
         avaliacaoExistente.setNota(dadosAvaliacao.getNota());
         avaliacaoExistente.setComentario(dadosAvaliacao.getComentario());
-        avaliacaoExistente.setIdConteudoAvaliacao(dadosAvaliacao.getIdConteudoAvaliacao());
         avaliacaoExistente.setDataAvaliacao(dadosAvaliacao.getDataAvaliacao());
-        avaliacaoExistente.setIdConteudoAvaliacao(dadosAvaliacao.getIdConteudoAvaliacao());
 
         Avaliacao avaliacaoAtualizada = avaliacaoRepository.save(avaliacaoExistente);
         return ResponseEntity.ok(avaliacaoAtualizada);

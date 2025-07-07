@@ -1,15 +1,17 @@
 package com.movie_bd.services;
 
-import com.movie_bd.config.ResponseWrapper;
 import com.movie_bd.model.Avaliacao;
 import com.movie_bd.model.Avaliacao_Filme;
-import com.movie_bd.model.Avaliacao_Serie;
+import com.movie_bd.model.Filme;
 import com.movie_bd.model.keys.PKs_Avaliacao_Filme;
 import com.movie_bd.repository.Avaliacao_FilmeRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,12 +19,15 @@ import java.util.List;
 public class Avaliacao_FilmeServices {
 
     private final Avaliacao_FilmeRepository afRepository;
+    private final EntityManager entityManager;
 
     @Autowired
-    public Avaliacao_FilmeServices(Avaliacao_FilmeRepository afRepository) {
+    public Avaliacao_FilmeServices(Avaliacao_FilmeRepository afRepository, EntityManager entityManager) {
         this.afRepository = afRepository;
+        this.entityManager = entityManager;
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<Avaliacao_Filme> getAvaliacoesByFilmeId(Long idFilme){
         List<Avaliacao> avaliacoes = afRepository.findAvaliacoesByFilmeId(idFilme);
 
@@ -31,53 +36,57 @@ public class Avaliacao_FilmeServices {
                 : new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<Integer> getMediaDeNotasPorFilme(Long idFilme){
         int media = afRepository.findMediaDeNotasPorFilme(idFilme);
         if(media <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(media, HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<Long> getCountByFilme_ID_Filme(Long idFilme){
         long contagem = afRepository.countByFilmeIdFilme(idFilme);
         if (contagem <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(contagem, HttpStatus.OK);
     }
 
-    public ResponseEntity<ResponseWrapper<Avaliacao_Serie>> createAvaliacaoFilme(Avaliacao_Filme af){
-        try {
-            Avaliacao_Serie av = new Avaliacao_Serie();
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ResponseWrapper<>("Avaliacao Serie Criada", av));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                    .body(new ResponseWrapper<>("Internal Server ERROR", null));
+    @Transactional
+    public ResponseEntity<Avaliacao_Filme> createAvaliacaoFilme(Avaliacao_Filme avaliacaoFilme) {
+        if (avaliacaoFilme.getAvaliacao() != null && avaliacaoFilme.getAvaliacao().getIdAvaliacao() != null) {
+            Avaliacao avaliacaoRef = entityManager.getReference(Avaliacao.class, avaliacaoFilme.getAvaliacao().getIdAvaliacao());
+            avaliacaoFilme.setAvaliacao(avaliacaoRef);
         }
+        if (avaliacaoFilme.getFilme() != null && avaliacaoFilme.getFilme().getIdFilme() != null) {
+            Filme filmeRef = entityManager.getReference(Filme.class, avaliacaoFilme.getFilme().getIdFilme());
+            avaliacaoFilme.setFilme(filmeRef);
+        }
+        Avaliacao_Filme novaAvaliacaoFilme = afRepository.save(avaliacaoFilme);
+        return new ResponseEntity<>(novaAvaliacaoFilme, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> update(Long idFilme, Long idAvaliacao, Avaliacao_Filme dadosAtualizados) {
-        PKs_Avaliacao_Filme pk = new PKs_Avaliacao_Filme();
-        pk.setIdFilme(idFilme);
-        pk.setIdAvaliacao(idAvaliacao);
+    @Transactional
+    public ResponseEntity<Avaliacao_Filme> update(Long idFilme, Long idAvaliacao, Avaliacao_Filme dadosAtualizados) {
+        PKs_Avaliacao_Filme id = new PKs_Avaliacao_Filme(idAvaliacao, idFilme);
+        Avaliacao_Filme afExistente = afRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Avaliação de filme não encontrada"));
 
-        Avaliacao_Filme af = afRepository.findById(pk)
-                .orElseThrow(() -> new RuntimeException("Avaliacao Filme not found"));
+        if (dadosAtualizados.getAvaliacao() != null && dadosAtualizados.getAvaliacao().getIdAvaliacao() != null) {
+            Avaliacao avaliacaoRef = entityManager.getReference(Avaliacao.class, dadosAtualizados.getAvaliacao().getIdAvaliacao());
+            afExistente.setAvaliacao(avaliacaoRef);
+        }
 
-        af.setAvaliacao(dadosAtualizados.getAvaliacao());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseWrapper<>("Avaliacao Atualizada", af));
+        Avaliacao_Filme afAtualizado = afRepository.save(afExistente);
+        return ResponseEntity.ok(afAtualizado);
     }
 
-    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> delete(Long idFilme, Long idAvaliacao) {
-        PKs_Avaliacao_Filme pk = new PKs_Avaliacao_Filme();
-        pk.setIdFilme(idFilme);
-        pk.setIdAvaliacao(idAvaliacao);
-
-        Avaliacao_Filme af = afRepository.findById(pk)
-                .orElseThrow(() -> new RuntimeException("Avaliacao Filme not found"));
-
-        afRepository.deleteById(pk);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(new ResponseWrapper<>("Avaliacao Deletada", af));
+    @Transactional
+    public ResponseEntity<Void> delete(Long idFilme, Long idAvaliacao) {
+        PKs_Avaliacao_Filme id = new PKs_Avaliacao_Filme(idAvaliacao, idFilme);
+        if (!afRepository.existsById(id)) {
+            throw new EntityNotFoundException("Avaliação de filme não encontrada");
+        }
+        afRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
