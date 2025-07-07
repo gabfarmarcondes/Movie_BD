@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByNomeUsuario(String nomeUsuario);
 
-    @Query("SELECT u.nomeUsuario, u.email " +
+    @Query("SELECT u " +
             "FROM Usuario u " +
             "WHERE u.statusSolicitacaoCritico = TRUE ")
     List<Usuario> findUsuarioByStatusSolicitacaoCritico(boolean statusSolicitacaoCritico);

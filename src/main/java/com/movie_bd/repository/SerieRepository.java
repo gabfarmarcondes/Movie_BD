@@ -15,7 +15,7 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     Optional<Serie> findSerieByTitulo(String titulo);
 
-    @Query("SELECT s.titulo, s.genero, s.qtdeTemporadas " +
+    @Query("SELECT s " +
             "FROM Serie s " +
             "WHERE s.qtdeTemporadas >= :temporadas")
     List<Serie> findSeriesComMaisTemporadasQue(@Param("temporadas") int qtdeTemporadas);
