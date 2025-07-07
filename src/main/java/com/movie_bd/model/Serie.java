@@ -20,16 +20,16 @@ public class Serie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSerie;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 100)
     private String titulo;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 500)
     private String sinopse;
 
     @Column(nullable = false)
     private int qtdeTemporadas;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String genero;
 
     @Column(nullable = false)
@@ -38,7 +38,7 @@ public class Serie {
     @Column(nullable = false)
     private int anoFim;
 
-    @OneToMany(mappedBy = "idSerie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Pessoa_Atua_Serie> pessoaAtuaSeries = new ArrayList<>();
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, orphanRemoval = true)

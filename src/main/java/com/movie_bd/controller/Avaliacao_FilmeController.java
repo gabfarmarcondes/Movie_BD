@@ -1,8 +1,6 @@
 package com.movie_bd.controller;
 
-import com.movie_bd.config.ResponseWrapper;
 import com.movie_bd.model.Avaliacao_Filme;
-import com.movie_bd.model.Avaliacao_Serie;
 import com.movie_bd.services.Avaliacao_FilmeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,18 +33,18 @@ public class Avaliacao_FilmeController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<ResponseWrapper<Avaliacao_Serie>> createAvaliacaoFilme(@RequestBody Avaliacao_Filme af){
+    public ResponseEntity<Avaliacao_Filme> createAvaliacaoFilme(@RequestBody Avaliacao_Filme af){
         return afServices.createAvaliacaoFilme(af);
     }
 
     @PutMapping("/atualizar/{idFilme}/{idAvaliacao}")
-    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> update(
+    public ResponseEntity<Avaliacao_Filme> update(
             @PathVariable Long idFilme, @PathVariable Long idAvaliacao, @RequestBody Avaliacao_Filme dadosAtualizados) {
         return afServices.update(idFilme, idAvaliacao, dadosAtualizados);
     }
 
     @DeleteMapping("/deletar/{idFilme}/{idAvaliacao}")
-    public ResponseEntity<ResponseWrapper<Avaliacao_Filme>> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long idFilme, @PathVariable Long idAvaliacao) {
         return afServices.delete(idFilme, idAvaliacao);
     }

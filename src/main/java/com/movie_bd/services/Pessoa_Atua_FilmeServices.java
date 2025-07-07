@@ -5,6 +5,7 @@ import com.movie_bd.model.Pessoa;
 import com.movie_bd.model.Pessoa_Atua_Filme;
 import com.movie_bd.model.keys.PKs_Pessoa_Filme;
 import com.movie_bd.repository.Pessoa_Atua_FilmeRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,12 @@ import java.util.List;
 public class Pessoa_Atua_FilmeServices {
 
     private final Pessoa_Atua_FilmeRepository pafRepository;
+    private final EntityManager entityManager;
 
     @Autowired
-    public Pessoa_Atua_FilmeServices(Pessoa_Atua_FilmeRepository pafRepository) {
+    public Pessoa_Atua_FilmeServices(Pessoa_Atua_FilmeRepository pafRepository, EntityManager entityManager) {
         this.pafRepository = pafRepository;
+        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
@@ -44,6 +47,12 @@ public class Pessoa_Atua_FilmeServices {
 
     @Transactional
     public ResponseEntity<Pessoa_Atua_Filme> createPessoaAtuaFilme(Pessoa_Atua_Filme paf) {
+        Pessoa pessoaRef = entityManager.getReference(Pessoa.class, paf.getPessoa().getIdPessoa());
+        Filme filmeRef = entityManager.getReference(Filme.class, paf.getFilme().getIdFilme());
+
+        paf.setPessoa(pessoaRef);
+        paf.setFilme(filmeRef);
+
         Pessoa_Atua_Filme novoPaf = pafRepository.save(paf);
         return new ResponseEntity<>(novoPaf, HttpStatus.CREATED);
     }

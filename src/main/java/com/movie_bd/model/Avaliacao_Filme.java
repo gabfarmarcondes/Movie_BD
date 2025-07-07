@@ -12,22 +12,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@IdClass(PKs_Avaliacao_Filme.class)
 public class Avaliacao_Filme {
 
-    @Id
-    private Long idFilme;
-
-    @Id
-    private Long idAvaliacao;
+    @EmbeddedId
+    private PKs_Avaliacao_Filme id = new PKs_Avaliacao_Filme();
 
     @MapsId("idFilme")
     @ManyToOne
-    @JoinColumn(name = "idFilme", nullable = false)
+    @JoinColumn(name = "id_filme", nullable = false)
     private Filme filme;
 
     @MapsId("idAvaliacao")
     @ManyToOne
-    @JoinColumn(name = "idAvaliacao", nullable = false)
+    @JoinColumn(name = "id_avaliacao", nullable = false)
     private Avaliacao avaliacao;
 }

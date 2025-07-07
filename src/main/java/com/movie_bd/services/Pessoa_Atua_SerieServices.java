@@ -1,10 +1,12 @@
 package com.movie_bd.services;
 
+import com.movie_bd.model.Pessoa;
 import com.movie_bd.model.Pessoa_Atua_Serie;
 import com.movie_bd.model.Serie;
 import com.movie_bd.model.keys.PKs_Pessoa_Serie;
 import com.movie_bd.repository.Pessoa_Atua_SerieRepository;
 import com.movie_bd.repository.auxiliar.ElencoProjecao;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,12 @@ import java.util.List;
 public class Pessoa_Atua_SerieServices {
 
     private final Pessoa_Atua_SerieRepository pasRepository;
+    private final EntityManager entityManager;
 
     @Autowired
-    public Pessoa_Atua_SerieServices(Pessoa_Atua_SerieRepository pasRepository) {
+    public Pessoa_Atua_SerieServices(Pessoa_Atua_SerieRepository pasRepository, EntityManager entityManager) {
         this.pasRepository = pasRepository;
+        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
@@ -46,8 +50,14 @@ public class Pessoa_Atua_SerieServices {
 
     @Transactional
     public ResponseEntity<Pessoa_Atua_Serie> createPessoaAtuaSerie(Pessoa_Atua_Serie pas) {
-        Pessoa_Atua_Serie novaPas = pasRepository.save(pas);
-        return new ResponseEntity<>(novaPas, HttpStatus.CREATED);
+        Pessoa pessoaRef = entityManager.getReference(Pessoa.class, pas.getPessoa().getIdPessoa());
+        Serie serieRef = entityManager.getReference(Serie.class, pas.getSerie().getIdSerie());
+
+        pas.setPessoa(pessoaRef);
+        pas.setSerie(serieRef);
+
+        Pessoa_Atua_Serie novoPaf = pasRepository.save(pas);
+        return new ResponseEntity<>(novoPaf, HttpStatus.CREATED);
     }
 
     @Transactional
