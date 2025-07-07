@@ -34,7 +34,7 @@ public class Pessoa_Atua_SerieServices {
 
     @Transactional(readOnly = true)
     public ResponseEntity<List<Serie>> getSeriesByPessoaId(Long idPessoa) {
-        List<Serie> series = pasRepository.findByPessoaIdPessoaAndSerieIdSerie(idPessoa);
+        List<Serie> series = pasRepository.findSeriesByPessoaId(idPessoa);
         return ResponseEntity.ok(series);
     }
 

@@ -21,7 +21,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
             "JOIN paf.filme f " +
             "WHERE f.titulo = :titulo")
     List<Pessoa> findPessoasByTituloDeFilme(
-            @Param("tituloFilme")  String titulo);
+            @Param("titulo")  String titulo);
 
     @Query("SELECT p FROM Pessoa p " +
             "JOIN p.pessoaAtuaSeries pas " +
