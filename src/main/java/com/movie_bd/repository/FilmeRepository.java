@@ -18,7 +18,7 @@ public interface FilmeRepository extends JpaRepository<Filme, Long> {
     @Query("SELECT f.titulo, f.duracao, f.genero " +
             "FROM Filme f " +
             "WHERE YEAR(f.dataLancamento) BETWEEN 2000-01-01 AND 2010-12-31")
-    List<Filme> findFilmesEntre2000e2010(Date dataLancamento);
+    List<Filme> findFilmesEntre2000e2010();
 
 
     @Query("SELECT f.titulo, f.duracao, f.genero " +

@@ -30,8 +30,8 @@ public class FilmeServices {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<List<Filme>> findFilmesEntre2000e2010(Date dataLancamento) {
-        List<Filme> filmes = filmeRepository.findFilmesEntre2000e2010(dataLancamento);
+    public ResponseEntity<List<Filme>> findFilmesEntre2000e2010() {
+        List<Filme> filmes = filmeRepository.findFilmesEntre2000e2010();
         return ResponseEntity.ok(filmes);
     }
 
