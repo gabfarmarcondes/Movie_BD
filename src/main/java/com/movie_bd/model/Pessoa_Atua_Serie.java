@@ -28,6 +28,6 @@ public class Pessoa_Atua_Serie {
     @JoinColumn(name = "id_serie")
     private Serie serie;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 100)
     private String funcao;
 }

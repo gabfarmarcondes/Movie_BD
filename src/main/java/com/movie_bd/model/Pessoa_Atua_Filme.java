@@ -28,6 +28,6 @@ public class Pessoa_Atua_Filme {
     @JoinColumn(name = "id_filme")
     private Filme filme;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 100)
     private String funcao;
 }
