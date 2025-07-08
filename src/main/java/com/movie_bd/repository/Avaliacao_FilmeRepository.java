@@ -17,7 +17,7 @@ public interface Avaliacao_FilmeRepository extends JpaRepository<Avaliacao_Filme
     List<Avaliacao> findAvaliacoesByFilmeId(@Param("idFilme") Long idFilme);
 
     @Query("SELECT AVG(af.avaliacao.nota) FROM Avaliacao_Filme af WHERE af.filme.idFilme = :idFilme")
-    int findMediaDeNotasPorFilme(@Param("idFilme") Long idFilme);
+    Double findMediaDeNotasPorFilme(@Param("idFilme") Long idFilme);
 
     long countByFilmeIdFilme(Long idFilme);
 }

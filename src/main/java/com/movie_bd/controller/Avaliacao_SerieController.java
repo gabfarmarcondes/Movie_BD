@@ -52,8 +52,9 @@ public class Avaliacao_SerieController {
     }
 
     @DeleteMapping("/deletar/{idAvaliacao}/{idSerie}")
-    public void deletarAvaliacaoPorId(@PathVariable Long idAvaliacao, @PathVariable Long idSerie) {
+    public ResponseEntity<Void> deletarAvaliacaoPorId(@PathVariable Long idAvaliacao, @PathVariable Long idSerie) {
         PKs_Avaliacao_Serie id = new PKs_Avaliacao_Serie(idAvaliacao, idSerie);
         asServices.deletarAvaliacaoPorId(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -44,3 +44,125 @@
     * Uma nota para dos críticos.
     * Uma nota para do público geral.
   * A nota será de 0 a 10. De forma que será caldulada por uma média aritmética (nota de todos os usuários / quantidade de usuários que avaliaram).
+
+## Execução do Projeto
+### 📌 Pré-Requisitos
+- Java 17 ou superior
+- Gradle (para gerenciamento de dependências e build)
+- PostgreSQL (banco de dados)
+- Postman ou curl (para testar os endpoints da API)
+
+### ⚙️ Instalação das Dependências
+```bash
+# 1. Clone o repositório
+git clone <URL_DO_SEU_REPOSITORIO>
+cd Movie_BD
+
+# 2. Construa o projeto para baixar as dependências
+./gradlew build
+```
+
+### 🗃️ Configuração do Banco de Dados
+```sql
+CREATE DATABASE movie_bd;
+```
+
+```bash
+# Exemplo de comando para executar os scripts
+psql -U postgres -d movie_bd -f src/main/resources/creates.sql
+psql -U postgres -d movie_bd -f src/main/resources/preencher.sql
+```
+
+### 🔑 Configuração da Conexão
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/movie_bd
+spring.datasource.username=postgres
+spring.datasource.password=SUA_SENHA_AQUI
+
+# Durante o desenvolvimento, 'update' ajuda a refletir mudanças nas entidades.
+# Para produção, use uma ferramenta de migração como Flyway ou Liquibase.
+spring.jpa.hibernate.ddl-auto=update
+
+# Configurações para ver o SQL gerado pelo Hibernate no console
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+server.port=808
+```
+
+### ▶️ Rodando a Aplicação
+```bash
+./gradlew bootRun
+```
+
+### ✅ Testando os Endpoints
+Alguns exemplos de como interagir com a API.
+### 📺 Séries
+- **Criar uma Nova Série com Elenco:**
+  - (Nota: As pessoas com idPessoa 1 e 3 devem existir no banco de dados) 
+```bash
+curl -X POST http://localhost:8080/api/series/criar \
+-H "Content-Type: application/json" \
+-d '{
+  "titulo": "A Rede Quântica",
+  "sinopse": "Cientistas descobrem como viajar entre universos paralelos.",
+  "qtdeTemporadas": 1,
+  "genero": "Ficção Científica",
+  "anoInicio": 2025,
+  "anoFim": 2025,
+  "pessoaAtuaSeries": [
+    {
+      "funcao": "Protagonista",
+      "pessoa": { "idPessoa": 1 }
+    },
+    {
+      "funcao": "Roteirista",
+      "pessoa": { "idPessoa": 3 }
+    }
+  ]
+}'
+```
+
+- **Atualizar uma Série (Ex: ID 1):**
+```bash
+curl -X PUT http://localhost:8080/api/series/atualizar/1 \
+-H "Content-Type: application/json" \
+-d '{
+  "titulo": "Mundo Virtual - Renascimento",
+  "sinopse": "A realidade virtual se torna mais perigosa do que nunca.",
+  "qtdeTemporadas": 4,
+  "genero": "Ficção Científica / Ação",
+  "anoInicio": 2018,
+  "anoFim": 2023
+}'
+```
+- **Deletar uma Série(Ex.:ID 2)**
+```bash
+curl -X DELETE http://localhost:8080/api/series/deletar/2
+```
+### 🎥 Filmes
+- **Criar um Novo Filme**
+```bash
+curl -X POST http://localhost:8080/api/filmes/criar \
+-H "Content-Type: application/json" \
+-d '{
+    "titulo": "Além do Horizonte",
+    "sinopse": "Uma jornada épica em busca de um tesouro perdido.",
+    "genero": "Aventura",
+    "duracao": "02:25:00",
+    "dataLancamento": "2025-12-25"
+}'
+```
+
+### 👤 Pessoas
+- **Criar uma Nova Pessoa**
+```bash
+curl -X POST http://localhost:8080/api/pessoas/criar \
+-H "Content-Type: application/json" \
+-d '{
+    "pnome": "Maria",
+    "minicial": "C",
+    "unome": "Costa",
+    "nacionalidade": "Brasileira",
+    "dataNascimento": "1995-10-08"
+}'
+```

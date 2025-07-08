@@ -28,26 +28,21 @@ public class Avaliacao_FilmeServices {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Avaliacao_Filme> getAvaliacoesByFilmeId(Long idFilme){
+    public ResponseEntity<List<Avaliacao>> getAvaliacoesByFilmeId(Long idFilme){
         List<Avaliacao> avaliacoes = afRepository.findAvaliacoesByFilmeId(idFilme);
-
-        return avaliacoes.isEmpty()
-                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(avaliacoes);
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Integer> getMediaDeNotasPorFilme(Long idFilme){
-        int media = afRepository.findMediaDeNotasPorFilme(idFilme);
-        if(media <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(media, HttpStatus.OK);
+    public ResponseEntity<Double> getMediaDeNotasPorFilme(Long idFilme){
+        Double media = afRepository.findMediaDeNotasPorFilme(idFilme);
+        return ResponseEntity.ok(media != null ? media : 0);
     }
 
     @Transactional(readOnly = true)
     public ResponseEntity<Long> getCountByFilme_ID_Filme(Long idFilme){
         long contagem = afRepository.countByFilmeIdFilme(idFilme);
-        if (contagem <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(contagem, HttpStatus.OK);
+        return ResponseEntity.ok(contagem);
     }
 
     @Transactional

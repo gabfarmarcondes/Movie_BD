@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS pessoa_atua_serie
 (
     id_pessoa BIGINT,
     id_serie BIGINT,
-    funcao VARCHAR(30),
+    funcao VARCHAR(100),
     PRIMARY KEY (id_pessoa, id_serie),
     FOREIGN KEY (id_pessoa) REFERENCES pessoa(id_pessoa),
     FOREIGN KEY (id_serie) REFERENCES serie(id_serie)
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS pessoa_atua_filme
 (
     id_pessoa BIGINT,
     id_filme BIGINT,
-    funcao VARCHAR(30),
+    funcao VARCHAR(100),
     PRIMARY KEY (id_pessoa, id_filme),
     FOREIGN KEY (id_pessoa) REFERENCES pessoa(id_pessoa),
     FOREIGN KEY (id_filme) REFERENCES filme(id_filme)
